@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今天晚上吃什么？</title>
+  <style>
+    /* 这里是 CSS 样式，用于美化页面 */
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      text-align: center;
+      margin-top: 15%;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    #result {
+      font-size: 2em;
+      font-weight: bold;
+      color: #e74c3c;
+      margin: 30px 0;
+      min-height: 48px; /* 保持高度防止跳动 */
+    }
+    button {
+      padding: 12px 30px;
+      font-size: 1.2em;
+      color: #fff;
+      background-color: #3498db;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🤔 今天晚上吃什么？</h1>
+    
+    <!-- 显示结果的区域 -->
+    <div id="result">点击按钮告诉我...</div>
+    
+    <!-- 交互按钮 -->
+    <button onclick="pickFood()">帮我选！</button>
+  </div>
+
+  <script>
+    // 这里是 JavaScript 逻辑
+    // 1. 定义你的主菜单数组（你可以随意修改、添加你喜欢的食物）
+    const menu = [
+      "火锅", "烧烤", "麻辣烫", "牛肉面", "黄焖鸡米饭", 
+      "炒饭", "水饺", "酸菜鱼", "烤肉", "炸鸡", 
+      "轻食沙拉", "日料/寿司", "螺蛳粉", "意大利面", "外卖随便点", "麦当劳"
+    ];
+
+    function pickFood() {
+      const resultDiv = document.getElementById("result");
+      
+      // 添加一点随机滚动的动画效果，增加抽奖的趣味性
+      let count = 0;
+      let timer = setInterval(() => {
+        // 随机获取数组中的一个索引
+        const randomIndex = Math.floor(Math.random() * menu.length);
+        resultDiv.innerText = menu[randomIndex];
+        resultDiv.style.color = "#95a5a6"; // 滚动时的灰色
+        count++;
+        
+        // 滚动 15 次后停止
+        if (count > 15) {
+          clearInterval(timer); // 停止滚动
+          resultDiv.style.color = "#e74c3c"; // 最终确定的醒目红色
+          resultDiv.innerText = `🎉 就决定吃：${menu[randomIndex]}！`;
+        }
+      }, 50); // 每 50 毫秒切换一次文字
+    }
+  </script>
+
+</body>
+</html>
