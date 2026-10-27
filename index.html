@@ -5,28 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>今天晚上吃什么？</title>
   <style>
-    /* 这里是 CSS 样式，用于美化页面 */
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
       text-align: center;
-      margin-top: 15%;
-      background-color: #f4f4f9;
       color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
     }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
     .container {
-      background: white;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
       padding: 40px;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      display: inline-block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 1;
     }
+
     #result {
       font-size: 2em;
       font-weight: bold;
       color: #e74c3c;
       margin: 30px 0;
-      min-height: 48px; /* 保持高度防止跳动 */
+      min-height: 48px;
     }
+
     button {
       padding: 12px 30px;
       font-size: 1.2em;
@@ -38,29 +57,33 @@
       transition: background-color 0.3s;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    button:hover {
-      background-color: #2980b9;
-    }
-    button:active {
-      transform: scale(0.98);
+    
+    button:hover { background-color: #2980b9; }
+    button:active { transform: scale(0.98); }
+    
+    .nav-link {
+      display: block;
+      margin-top: 20px;
+      color: #3498db;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
+  <!-- src 属性已修改为 backgroud.mp4 以匹配你仓库中的文件名 -->
+  <video id="bg-video" autoplay loop muted playsinline>
+    <source src="backgroud.mp4" type="video/mp4">
+  </video>
+
   <div class="container">
     <h1>🤔 今天晚上吃什么？</h1>
-    
-    <!-- 显示结果的区域 -->
     <div id="result">点击按钮告诉我...</div>
-    
-    <!-- 交互按钮 -->
     <button onclick="pickFood()">帮我选！</button>
+    <a href="about.html" class="nav-link">查看关于页面</a>
   </div>
 
   <script>
-    // 这里是 JavaScript 逻辑
-    // 1. 定义你的主菜单数组（你可以随意修改、添加你喜欢的食物）
     const menu = [
       "火锅", "烧烤", "麻辣烫", "牛肉面", "黄焖鸡米饭", 
       "炒饭", "水饺", "酸菜鱼", "烤肉", "炸鸡", 
@@ -69,25 +92,20 @@
 
     function pickFood() {
       const resultDiv = document.getElementById("result");
-      
-      // 添加一点随机滚动的动画效果，增加抽奖的趣味性
       let count = 0;
       let timer = setInterval(() => {
-        // 随机获取数组中的一个索引
         const randomIndex = Math.floor(Math.random() * menu.length);
         resultDiv.innerText = menu[randomIndex];
-        resultDiv.style.color = "#95a5a6"; // 滚动时的灰色
+        resultDiv.style.color = "#95a5a6";
         count++;
         
-        // 滚动 15 次后停止
         if (count > 15) {
-          clearInterval(timer); // 停止滚动
-          resultDiv.style.color = "#e74c3c"; // 最终确定的醒目红色
+          clearInterval(timer);
+          resultDiv.style.color = "#e74c3c";
           resultDiv.innerText = `🎉 就决定吃：${menu[randomIndex]}！`;
         }
-      }, 50); // 每 50 毫秒切换一次文字
+      }, 50);
     }
   </script>
-
 </body>
 </html>
